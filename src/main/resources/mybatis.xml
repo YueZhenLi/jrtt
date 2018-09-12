@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--配置数据库连接配置文件-->
+    <!--<properties resource="dbconfig.properties"/>-->
+    <settings>
+        <!--配置懒加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--配置二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <!--配置类型别名-->
+    <typeAliases>
+        <!--<typeAlias type="com.fc.bean.User"/>-->
+        <package name="com.cskaoyan.smzdm.domain"/>
+    </typeAliases>
+
+   <!-- <environments default="development">
+        <environment id="development">
+            &lt;!&ndash;目前事务需要自己手动控制&ndash;&gt;
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+
+    <!--分页插件-->
+    <!--<plugins>-->
+        <!--<plugin interceptor="com.github.pagehelper.PageHelper">-->
+            <!--&lt;!&ndash;数据库类型 配不配都可以系统会自动识别&ndash;&gt;-->
+            <!--<property name="dialect" value="mysql"></property>-->
+            <!--<property name="reasonable" value="true"></property>-->
+            <!--<property name="pageSizeZero" value="true"></property>-->
+        <!--</plugin>-->
+    <!--</plugins>-->
+</configuration>
