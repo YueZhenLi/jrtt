@@ -3,7 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cskaoyan.smzdm.dao.UserMapper">
+    <insert id="insert" parameterType="com.cskaoyan.smzdm.domain.User">
+        INSERT INTO `user` VALUES (null, #{name}, null, #{password})
+    </insert>
     <select id="findUserById" resultType="com.cskaoyan.smzdm.domain.User">
         SELECT * FROM `user` WHERE id = #{id}
+    </select>
+    <select id="findUserByUsernameAndPassword" resultType="com.cskaoyan.smzdm.domain.User">
+        SELECT * FROM `user` WHERE `name` = #{name} AND password=#{password}
+    </select>
+    <select id="findUserByUsernameCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM `user` WHERE `name` = #{username}
     </select>
 </mapper>

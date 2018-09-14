@@ -6,10 +6,19 @@ package com.cskaoyan.smzdm.domain;
  */
 public class User {
     int id;
-    String username;
-    String passward;
-    int age;
-    String descr;
+    String name;
+    String headUrl;
+    String password;
+
+    public User() {
+    }
+
+    public User(int id, String name, String headUrl, String password) {
+        this.id = id;
+        this.name = name;
+        this.headUrl = headUrl;
+        this.password = password;
+    }
 
     public int getId() {
         return id;
@@ -19,46 +28,37 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassward() {
-        return passward;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setPassward(String passward) {
-        this.passward = passward;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 
-    public int getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getDescr() {
-        return descr;
-    }
-
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", passward='" + passward + '\'' +
-                ", age=" + age +
-                ", descr='" + descr + '\'' +
+                ", name='" + name + '\'' +
+                ", headUrl='" + headUrl + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

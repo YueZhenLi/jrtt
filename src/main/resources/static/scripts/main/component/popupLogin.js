@@ -166,10 +166,10 @@
         if (!oData.pwd) {
             that.iptError(that.pwdIpt, '密码不能为空');
             bRight = false;
-        } else if (oData.pwd.length < 6) {
+        } /*else if (oData.pwd.length < 6) {
             that.iptError(that.pwdIpt, '密码不能小于6位');
             bRight = false;
-        }
+        }*/
         return bRight;
     }
 
