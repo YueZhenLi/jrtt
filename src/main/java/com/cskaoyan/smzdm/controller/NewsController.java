@@ -6,6 +6,7 @@ import com.cskaoyan.smzdm.domain.User;
 import com.cskaoyan.smzdm.domain.vo.VO;
 import com.cskaoyan.smzdm.service.NewsService;
 import com.cskaoyan.smzdm.service.UserService;
+import com.cskaoyan.smzdm.util.RedisUtil;
 import org.apache.velocity.tools.generic.DateTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,9 +71,15 @@ public class NewsController {
         List<VO> vos = new ArrayList<>();
         List<News> newz = newsService.showNews();
         for (News news : newz) {
+//            //获取newsId并从redis中得到出点赞人数
+//            int id = news.getId();
+//            String idLike = String.valueOf(id)+"Like";
+//            Long scard = RedisUtil.scard(idLike);
             int uid = news.getUid();
             User userById = userService.findUserById(uid);
             VO vo = new VO();
+//            vo.setLike(scard.intValue());
+            vo.setLike(news.getLikeCount());
             vo.setUser(userById);
             vo.setNews(news);
             vos.add(vo);
@@ -182,6 +189,54 @@ public class NewsController {
         hashMap.put("code", 0);
         return hashMap;
     }*/
+
+    @RequestMapping("/like")
+    @ResponseBody
+    public Map like(String newsId, HttpSession session){
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        User user = (User) session.getAttribute("user");
+        //若用户没有登陆，则只返回查询结果，不做其他操作
+        if (user==null){
+            Long scard = RedisUtil.scard(newsId + "Like");
+            hashMap.put("msg", scard);
+            hashMap.put("code", 0);
+            return hashMap;
+        }
+        boolean likeResult = newsService.incrLikeByNewId(newsId, user);
+        if (likeResult){
+            Long scard = RedisUtil.scard(newsId + "Like");
+            hashMap.put("msg", scard);
+            hashMap.put("code", 0);
+            return hashMap;
+        }else
+            hashMap.put("code", 1);
+        return hashMap;
+    }
+
+    @RequestMapping("/dislike")
+    @ResponseBody
+    public Map dislike(String newsId, HttpSession session){
+        HashMap<Object, Object> hashMap = new HashMap<>();
+        User user = (User) session.getAttribute("user");
+        //若用户没有登陆，则只返回查询结果，不做其他操作
+        if (user==null){
+            Long scard = RedisUtil.scard(newsId + "Like");
+            hashMap.put("msg", scard);
+            hashMap.put("code", 0);
+            return hashMap;
+        }
+        boolean dislikeResult = newsService.reduceLikeByNewId(newsId, user);
+
+        //发挥赞的总数
+        if (dislikeResult){
+            Long scard = RedisUtil.scard(newsId + "Like");
+            hashMap.put("msg", scard);
+            hashMap.put("code", 0);
+            return hashMap;
+        }else
+            hashMap.put("code", 1);
+        return hashMap;
+    }
 
 }
 

@@ -7,7 +7,15 @@
         INSERT INTO news VALUES (null, #{image}, #{title}, #{link}, #{createdDate},#{commentCount},#{commentCount}, #{uid})
     </insert>
 
+    <update id="incrLikeByNewId">
+        UPDATE news SET likeCount=likeCount+1 WHERE id=#{newsId}
+    </update>
+    <update id="reduceLikeByNewId">
+         UPDATE news SET likeCount=likeCount-1 WHERE id=#{newsId}
+    </update>
+
     <select id="showNews" resultType="com.cskaoyan.smzdm.domain.News">
         SELECT * FROM news
     </select>
+
 </mapper>

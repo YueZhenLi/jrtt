@@ -15,4 +15,11 @@ public interface NewsMapper {
     List<News> showNews();
 
     Integer insert(News news);
+
+    Integer incrLikeByNewId(String newsId);
+
+    Integer reduceLikeByNewId(String newsId);
+
+//    Long findNewsByNewsInfo(News news);
+
 }
